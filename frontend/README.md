@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SLN Groups — Frontend Web Application
 
-## Getting Started
+The official client-facing corporate web portal for **SLN Groups Real Estate & Developments**, built with Next.js 14, Tailwind CSS, Framer Motion, and HTML5 WebGL/Canvas 3D interactions.
 
-First, run the development server:
+---
 
+## 🌟 Key Features
+
+* **3D Particle Constellation Engine (`src/components/ThreeBackground.tsx`)**: Real-time 60 FPS interactive particle constellation with floating wireframe geometric architectural landmarks that dynamically respond to mouse parallax.
+* **Interactive 3D Tilt Cards (`src/components/TiltCard.tsx`)**: Physics-based perspective tilt with dynamic specular light glare reflection that tracks cursor angle.
+* **Developments Showcase**: Live filterable properties (*All*, *Ongoing*, *Completed*, *Upcoming*) synchronized with the backend REST API (`/api/projects`).
+* **Floor Plan & Specification Modal**: Detailed blueprint layouts (*3 BHK Sky Residences*, *4 BHK Royal Suites*, *Penthouses*) and IGBC sustainability metrics.
+* **Private Consultation Desk**: Live lead inquiry form with immediate celebration feedback (`canvas-confetti`) hooked up to the NestJS backend.
+* **Luxury Obsidian & Gold Styling**: High-contrast, dark-mode-first aesthetic with glassmorphic cards and subtle specular glows.
+
+---
+
+## 🚀 Getting Started
+
+### 1. Install Dependencies
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Start Development Server
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Production Build
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🔗 Backend Connectivity
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The frontend connects to the local NestJS backend at `http://localhost:5000`:
+* Property data is loaded from `GET http://localhost:5000/api/projects`.
+* Consultation requests are dispatched to `POST http://localhost:5000/api/inquiries`.
+* If the backend is temporarily offline, the frontend seamlessly uses embedded luxury fallback assets so the portal remains fully interactive and visual.
