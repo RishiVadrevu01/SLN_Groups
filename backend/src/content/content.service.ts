@@ -5,11 +5,22 @@ import { PrismaService } from '../prisma/prisma.service';
 export class ContentService {
   constructor(private prisma: PrismaService) {}
 
+  private parseJson(val: any) {
+    if (typeof val === 'string') {
+      try {
+        return JSON.parse(val);
+      } catch {
+        return val;
+      }
+    }
+    return val;
+  }
+
   async getAllContent() {
     const list = await this.prisma.siteContent.findMany();
     const map: Record<string, any> = {};
     for (const item of list) {
-      map[item.sectionKey] = item.content;
+      map[item.sectionKey] = this.parseJson(item.content);
     }
     return map;
   }
@@ -18,22 +29,26 @@ export class ContentService {
     const item = await this.prisma.siteContent.findUnique({
       where: { sectionKey },
     });
-    return item ? item.content : null;
+    return item ? this.parseJson(item.content) : null;
   }
 
   async setSection(sectionKey: string, content: any, title?: string) {
-    return this.prisma.siteContent.upsert({
+    const contentStr = typeof content === 'string' ? content : JSON.stringify(content);
+    const result = await this.prisma.siteContent.upsert({
       where: { sectionKey },
       create: {
         sectionKey,
         title,
-        content,
+        content: contentStr,
       },
       update: {
         title,
-        content,
+        content: contentStr,
       },
     });
+    return {
+      ...result,
+      content: this.parseJson(result.content),
+    };
   }
 }
-

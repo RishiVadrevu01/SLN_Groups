@@ -8,7 +8,7 @@ import {
   IsNumber,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { ProjectCategory, PropertyType } from '@prisma/client';
+import { ProjectCategory, PropertyType } from '../../common/enums';
 
 export class CreateProjectDto {
   @ApiProperty({ example: 'SLN Grandeur' })

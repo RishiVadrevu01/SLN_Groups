@@ -1,6 +1,6 @@
 import { IsString, IsNotEmpty, IsOptional, IsEnum, IsBoolean, IsNumber } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { MediaCategory } from '@prisma/client';
+import { MediaCategory } from '../../common/enums';
 
 export class CreateMediaItemDto {
   @ApiProperty({ example: 'Groundbreaking Ceremony of SLN Heights' })

@@ -1,6 +1,6 @@
 import { IsString, IsNotEmpty, IsEmail, IsOptional, IsEnum } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { InquiryStatus } from '@prisma/client';
+import { InquiryStatus } from '../../common/enums';
 
 export class CreateInquiryDto {
   @ApiProperty({ example: 'Vikram Malhotra' })

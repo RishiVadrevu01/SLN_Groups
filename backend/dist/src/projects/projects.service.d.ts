@@ -1,0 +1,54 @@
+import { PrismaService } from '../prisma/prisma.service';
+import { CreateProjectDto, UpdateProjectDto } from './dto/project.dto';
+import { ProjectCategory } from '../common/enums';
+export declare class ProjectsService {
+    private prisma;
+    constructor(prisma: PrismaService);
+    private serializeProject;
+    private parseProject;
+    findAll(query?: {
+        category?: ProjectCategory;
+        isFeatured?: boolean;
+        search?: string;
+    }): Promise<any[]>;
+    findAllAdmin(): Promise<any[]>;
+    findBySlug(slug: string): Promise<any>;
+    findById(id: string): Promise<any>;
+    create(dto: CreateProjectDto): Promise<any>;
+    update(id: string, dto: Partial<UpdateProjectDto>): Promise<any>;
+    remove(id: string): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        slug: string;
+        title: string;
+        tagline: string;
+        description: string;
+        category: string;
+        propertyType: string;
+        location: string;
+        address: string;
+        city: string;
+        state: string;
+        pincode: string | null;
+        latitude: number | null;
+        longitude: number | null;
+        totalAreaSqFt: string;
+        unitsCount: string | null;
+        floors: string | null;
+        completionYear: string | null;
+        expectedPossession: string | null;
+        featuredImage: string;
+        galleryImages: string | null;
+        amenities: string | null;
+        highlights: string | null;
+        specifications: string | null;
+        floorPlans: string | null;
+        brochureUrl: string | null;
+        virtualTourUrl: string | null;
+        videoUrl: string | null;
+        isFeatured: boolean;
+        isPublished: boolean;
+        orderIndex: number;
+    }>;
+}

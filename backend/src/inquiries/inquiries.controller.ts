@@ -2,7 +2,7 @@ import { Controller, Get, Post, Put, Delete, Body, Param, Query, UseGuards } fro
 import { ApiTags, ApiOperation, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { InquiriesService } from './inquiries.service';
 import { CreateInquiryDto, UpdateInquiryStatusDto } from './dto/inquiry.dto';
-import { InquiryStatus } from '@prisma/client';
+import { InquiryStatus } from '../common/enums';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @ApiTags('Inquiries & Leads')

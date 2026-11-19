@@ -1,0 +1,90 @@
+import { PrismaService } from '../prisma/prisma.service';
+import { CreateMemberDto, UpdateMemberDto } from './dto/team.dto';
+export declare class TeamService {
+    private prisma;
+    constructor(prisma: PrismaService);
+    findAll(): Promise<{
+        id: string;
+        email: string | null;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+        orderIndex: number;
+        designation: string;
+        department: string;
+        bio: string;
+        photoUrl: string;
+        linkedinUrl: string | null;
+        isActive: boolean;
+    }[]>;
+    findAllAdmin(): Promise<{
+        id: string;
+        email: string | null;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+        orderIndex: number;
+        designation: string;
+        department: string;
+        bio: string;
+        photoUrl: string;
+        linkedinUrl: string | null;
+        isActive: boolean;
+    }[]>;
+    findById(id: string): Promise<{
+        id: string;
+        email: string | null;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+        orderIndex: number;
+        designation: string;
+        department: string;
+        bio: string;
+        photoUrl: string;
+        linkedinUrl: string | null;
+        isActive: boolean;
+    }>;
+    create(dto: CreateMemberDto): Promise<{
+        id: string;
+        email: string | null;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+        orderIndex: number;
+        designation: string;
+        department: string;
+        bio: string;
+        photoUrl: string;
+        linkedinUrl: string | null;
+        isActive: boolean;
+    }>;
+    update(id: string, dto: Partial<UpdateMemberDto>): Promise<{
+        id: string;
+        email: string | null;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+        orderIndex: number;
+        designation: string;
+        department: string;
+        bio: string;
+        photoUrl: string;
+        linkedinUrl: string | null;
+        isActive: boolean;
+    }>;
+    remove(id: string): Promise<{
+        id: string;
+        email: string | null;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+        orderIndex: number;
+        designation: string;
+        department: string;
+        bio: string;
+        photoUrl: string;
+        linkedinUrl: string | null;
+        isActive: boolean;
+    }>;
+}

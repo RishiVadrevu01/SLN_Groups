@@ -1,50 +1,12 @@
-// Prisma Schema for SLN Groups Real Estate Corporate Website
+// Prisma Schema for SLN Groups Real Estate Corporate Website (SQLite Local Mode)
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
-}
-
-enum Role {
-  ADMIN
-  EDITOR
-}
-
-enum ProjectCategory {
-  COMPLETED
-  ONGOING
-  UPCOMING
-}
-
-enum PropertyType {
-  RESIDENTIAL_LUXURY
-  COMMERCIAL_LANDMARK
-  PLOTTED_DEVELOPMENT
-  EXCLUSIVE_VILLAS
-  INTEGRATED_TOWNSHIP
-}
-
-enum InquiryStatus {
-  NEW
-  CONTACTED
-  IN_PROGRESS
-  RESOLVED
-  ARCHIVED
-}
-
-enum MediaCategory {
-  ALL
-  PROJECTS
-  COMPLETED_DEVELOPMENTS
-  CONSTRUCTION_PROGRESS
-  CORPORATE_EVENTS
-  TEAM_CELEBRATIONS
-  OFFICE_BRANCHES
-  AWARDS_RECOGNITION
 }
 
 model User {
@@ -52,19 +14,19 @@ model User {
   email        String   @unique
   passwordHash String
   name         String
-  role         Role     @default(ADMIN)
+  role         String   @default("ADMIN")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
 
 model Project {
-  id                 String          @id @default(uuid())
-  slug               String          @unique
+  id                 String    @id @default(uuid())
+  slug               String    @unique
   title              String
   tagline            String
-  description        String          @db.Text
-  category           ProjectCategory
-  propertyType       PropertyType
+  description        String
+  category           String
+  propertyType       String
   location           String
   address            String
   city               String
@@ -78,19 +40,19 @@ model Project {
   completionYear     String?
   expectedPossession String?
   featuredImage      String
-  galleryImages      String[]        @default([])
-  amenities          String[]        @default([])
-  highlights         String[]        @default([])
-  specifications     Json?
-  floorPlans         Json?
+  galleryImages      String?   // JSON string
+  amenities          String?   // JSON string
+  highlights         String?   // JSON string
+  specifications     String?   // JSON string
+  floorPlans         String?   // JSON string
   brochureUrl        String?
   virtualTourUrl     String?
   videoUrl           String?
-  isFeatured         Boolean         @default(false)
-  isPublished        Boolean         @default(true)
-  orderIndex         Int             @default(0)
-  createdAt          DateTime        @default(now())
-  updatedAt          DateTime        @updatedAt
+  isFeatured         Boolean   @default(false)
+  isPublished        Boolean   @default(true)
+  orderIndex         Int       @default(0)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
   inquiries          Inquiry[]
 }
 
@@ -99,7 +61,7 @@ model LeadershipMember {
   name        String
   designation String
   department  String   @default("LEADERSHIP") // LEADERSHIP, MANAGEMENT, ADVISORY
-  bio         String   @db.Text
+  bio         String
   photoUrl    String
   linkedinUrl String?
   email       String?
@@ -120,7 +82,7 @@ model Branch {
   phone          String
   email          String
   workingHours   String   @default("Mon - Sat: 9:30 AM - 6:30 PM")
-  mapEmbedUrl    String   @db.Text
+  mapEmbedUrl    String
   directionsUrl  String?
   photoUrl       String
   isHeadquarters Boolean  @default(false)
@@ -130,43 +92,42 @@ model Branch {
 }
 
 model MediaItem {
-  id          String        @id @default(uuid())
-  title       String
-  category    MediaCategory @default(PROJECTS)
-  mediaType   String        @default("IMAGE") // IMAGE or VIDEO
-  url         String
+  id           String   @id @default(uuid())
+  title        String
+  category     String   @default("PROJECTS")
+  mediaType    String   @default("IMAGE") // IMAGE or VIDEO
+  url          String
   thumbnailUrl String?
-  caption     String?
-  eventDate   String?
-  isFeatured  Boolean       @default(false)
-  orderIndex  Int           @default(0)
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  caption      String?
+  eventDate    String?
+  isFeatured   Boolean  @default(false)
+  orderIndex   Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Inquiry {
-  id                     String        @id @default(uuid())
+  id                     String   @id @default(uuid())
   fullName               String
   email                  String
   phone                  String
   subject                String?
-  message                String        @db.Text
+  message                String
   projectInterest        String?
   budgetRange            String?
-  preferredContactMethod String?       @default("PHONE")
-  status                 InquiryStatus @default(NEW)
-  adminNotes             String?       @db.Text
+  preferredContactMethod String?  @default("PHONE")
+  status                 String   @default("NEW")
+  adminNotes             String?
   projectId              String?
-  project                Project?      @relation(fields: [projectId], references: [id], onDelete: SetNull)
-  createdAt              DateTime      @default(now())
-  updatedAt              DateTime      @updatedAt
+  project                Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
 }
 
 model SiteContent {
-  id          String   @id @default(uuid())
-  sectionKey  String   @unique
-  title       String?
-  content     Json
-  updatedAt   DateTime @updatedAt
+  id         String   @id @default(uuid())
+  sectionKey String   @unique
+  title      String?
+  content    String   // JSON string
+  updatedAt  DateTime @updatedAt
 }
-
